@@ -23,6 +23,8 @@
 #include "stm32f1xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "stdio.h"
+#include "memory.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -42,12 +44,11 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
-
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN PFP */
-
+void initFileSystem();
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -213,7 +214,87 @@ void DMA1_Channel1_IRQHandler(void)
   /* USER CODE END DMA1_Channel1_IRQn 1 */
 }
 
-/* USER CODE BEGIN 1 */
+/**
+  * @brief This function handles EXTI line[15:10] interrupts.
+  */
+//void EXTI15_10_IRQHandler(void)
+//{
+//  /* USER CODE BEGIN EXTI15_10_IRQn 0 */
+//  HAL_NVIC_DisableIRQ(startButton_EXTI_IRQn);
+//  HAL_NVIC_ClearPendingIRQ(startButton_EXTI_IRQn);
+//
+//  isStartButtonPressed = 1;
+//  startButtonPressedTick = HAL_GetTick();
+//
+//  if (!isRecording) {
+//    isRecording = 1;
+//
+//    char* filename;
+//    sprintf(filename, "recording_%lu", startButtonPressedTick);
+//
+//    if (fileSystem == NULL) {
+//      initFileSystem();
+//    }
+//
+//    FRESULT fResult;
+//    fResult = f_open(currentFile, filename, FA_WRITE | FA_CREATE_ALWAYS | FA_OPEN_ALWAYS);
+//    if (fResult != FR_OK) {
+//      //TODO reboot
+//      while (1);
+//    }
+//
+//    HAL_ADC_Stop_DMA(&hadc1);
+//    HAL_ADC_Start_DMA(&hadc1, microphoneData, 512);
+//
+//    //TODO enable complete callback
+//  }
+//  else {
+//    isRecording = 0;
+//
+//    FRESULT fResult;
+//    fResult = f_close(currentFile);
+//    if (fResult != FR_OK) {
+//      //TODO reboot
+//      while (1);
+//    }
+//
+//    HAL_ADC_Stop_DMA(&hadc1);
+//    HAL_ADC_Start_DMA(&hadc1, &microphoneCurrentValue, 1);
+//
+//    //TODO stop complete callback
+//  }
+//
+//  /* USER CODE END EXTI15_10_IRQn 0 */
+//  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_13);
+//  /* USER CODE BEGIN EXTI15_10_IRQn 1 */
+//
+//  /* USER CODE END EXTI15_10_IRQn 1 */
+//}
 
+/* USER CODE BEGIN 1 */
+//void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc) {
+//  if (!isRecording) {
+//    HAL_ADC_Start_DMA(&hadc1, microphoneData, 1);
+//    return;
+//  }
+//
+//  //TODO use DMA to copy buffer, after that send
+//  memcpy(microphoneSendBuffer, microphoneData, 512);
+//  HAL_ADC_Start_DMA(&hadc1, microphoneData, 512);
+//
+//  UINT* bw;
+//
+//  f_write(currentFile, microphoneSendBuffer, 1024, bw);
+//}
+
+//void initFileSystem() {
+//  FRESULT fResult;
+//
+//  fResult = f_mount(fileSystem, "", 1);
+//  if (fResult != FR_OK) {
+//    //TODO reboot
+//    while (1);
+//  }
+//}
 /* USER CODE END 1 */
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -42,7 +42,8 @@ extern "C" {
 
 /* Exported constants --------------------------------------------------------*/
 /* USER CODE BEGIN EC */
-
+extern ADC_HandleTypeDef hadc1;
+extern SPI_HandleTypeDef hspi1;
 /* USER CODE END EC */
 
 /* Exported macro ------------------------------------------------------------*/
@@ -58,14 +59,21 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define startButton_Pin GPIO_PIN_13
+#define startButton_GPIO_Port GPIOC
+#define startButton_EXTI_IRQn EXTI15_10_IRQn
+#define microphone_Pin GPIO_PIN_0
+#define microphone_GPIO_Port GPIOC
 #define TMS_Pin GPIO_PIN_13
 #define TMS_GPIO_Port GPIOA
 #define TCK_Pin GPIO_PIN_14
 #define TCK_GPIO_Port GPIOA
 #define SWO_Pin GPIO_PIN_3
 #define SWO_GPIO_Port GPIOB
+#define CS_Pin GPIO_PIN_6
+#define CS_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
-
+#define SD_SPI_HANDLE hspi1
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus
